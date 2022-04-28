@@ -18,6 +18,13 @@ async def on_ready():
     print(f'{bot.user.name} has connected to the server!')
 
 
+@bot.event
+async def on_member_join(new_member):
+    anti_greeting = random.choice(ANTI_GREETINGS).format(new_member.mention)
+    channel = new_member.guild.system_channel
+    await channel.send(anti_greeting)
+
+
 @bot.command(name=COMMAND_PREFIX)
 async def anti_greet(context, argument):
     anti_greeting = random.choice(ANTI_GREETINGS).format(argument)
