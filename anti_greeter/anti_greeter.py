@@ -4,13 +4,16 @@ import time
 import json
 from dotenv import load_dotenv
 from discord.ext import commands
+import discord
 
 random.seed(time.time())
 load_dotenv()
 DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
 COMMAND_PREFIX = os.getenv('DISCORD_COMMAND_PREFIX')
 ANTI_GREETINGS = json.loads(os.getenv('ANTI_GREETINGS'))
-bot = commands.Bot(command_prefix='!')
+intents = discord.Intents.default()
+intents.members = True
+bot = commands.Bot(command_prefix='!', intents = intents)
 
 
 @bot.event
@@ -22,6 +25,7 @@ async def on_ready():
 async def on_member_join(new_member):
     anti_greeting = random.choice(ANTI_GREETINGS).format(new_member.mention)
     channel = new_member.guild.system_channel
+    time.sleep(2)
     await channel.send(anti_greeting)
 
 
