@@ -1,3 +1,6 @@
 /.idea
-/venv
+**/.venv
+**/voxray-anti-greeter/**
 **/.env
+**/env/
+**/__pycache__
